@@ -1,0 +1,129 @@
+div {
+    text-align: center;
+}
+h1 {
+    color: white;
+    font-family: "arial black";
+}
+.panel > .panel-heading {
+    background-image: none;
+    background-color: #222;
+    color: white;
+    font-family: "arial black";
+    word-break: keep-all;
+    white-space: normal;
+}
+.panel {
+    word-break: keep-all;
+}
+.panel-body {
+    font-size: 20px;
+    font-family: "arial black";
+    color: #222;
+}
+#newGameButton {
+    display: none;
+    background-color: #222;
+    color: white;
+}
+#newGameButton:hover {
+    display: none;
+    background-color: whitesmoke;
+    color: #222;
+}
+#newGameButton:active {
+    display: none;
+    background-color: black;
+    color: whitesmoke;
+}
+#backgroundImg {
+    height: 242px;
+    width: 328px;
+    width: 100%;
+    height: auto;
+
+}
+#logoImg {
+    height: 40px;
+    width: 185px;
+    border: .1px solid #222;
+    border-radius: 4px;
+}
+#logoImg:hover {
+    box-shadow: 0 0 2px 1px white;
+}
+span {
+    margin: 10px;
+}
+#word {
+    letter-spacing: 1.5px;
+}
+.footer {
+    text-align: center;
+    left: 0;
+    right: 0;
+    bottom: 0; 
+    background-color: #222;
+    border: 1px solid black;
+    color: white;
+    padding: 5px;
+    position: relative;
+    width: 100%;
+}
+#lettersGuessed {
+    height: 58px;
+}
+li {
+    display: inline;
+}
+canvas {
+    width: 100%;
+    height: 750px;
+}
+a {
+    color: skyblue;
+}
+a:hover {
+    color: deepskyblue;
+    text-decoration: none;
+}
+a:active {
+    color: blueviolet;
+    text-decoration: none;
+}
+#showButtons {
+    background-color: #222;
+    color: white;
+    white-space: normal;
+}
+#showButtons:hover {
+    background-color: whitesmoke;
+    color: #222;
+}
+#showButtons:active {
+    background-color: black;
+    color: whitesmoke;
+}
+.inputButtons {
+    background-color: #222;
+    color: white;
+    margin: 5px;
+    padding: 10px 25px 10px 20px;
+    text-align: center;
+}
+.inputButtons:hover {
+    background-color: whitesmoke;
+    color: #222;
+}
+.inputButtons:active {
+    background-color: black;
+    color: whitesmoke;
+}
+html {
+    height: 100%;
+    width: 100%;
+}
+#buttons {
+    padding: 0px 45px 0px 10px;
+    text-align: center;
+}
