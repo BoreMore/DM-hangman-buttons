@@ -179,6 +179,10 @@ var totalWords = words["speakAndSpell"].length + words["aBrokenFrame"].length + 
 + words["songsOfFaithAndDevotion"].length + words["ultra"].length + words["exciter"].length + words["playingTheAngel"].length
 + words["soundsOfTheUniverse"].length + words["deltaMachine"].length + words["spirit"].length;
 
+document.getElementById("howToPlay").innerHTML = "Try to guess the word. Press keyboard keys or use the provided buttons to guess letters.";
+setTimeout(function() {
+    document.getElementById("howToPlay").innerHTML = "";
+}, 5000)
 begin();
 
 function begin() {
