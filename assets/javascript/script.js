@@ -144,7 +144,7 @@ function failure10() {
     ctx.lineTo(356, 181);
     ctx.stroke();
 
-var words = { // 4 per album for now
+var words = { 
     speakAndSpell: ["NEW LIFE", "PUPPETS", "JUST CAN'T GET ENOUGH", "TORA! TORA! TORA!"],
     aBrokenFrame: ["LEAVE IN SILENCE", "SEE YOU", "THE SUN AND THE RAINFALL", "MY SECRET GARDEN"],
     constructionTimeAgain: ["PIPELINE", "EVERYTHING COUNTS", "TWO MINUTE WARNING", "LOVE, IN ITSELF"],
