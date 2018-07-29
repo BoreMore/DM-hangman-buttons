@@ -145,7 +145,8 @@ function failure10() {
     ctx.stroke();
 }
 
-var words = {
+//words in game
+var words = { 
     speakAndSpell: ["NEW LIFE", "PUPPETS", "JUST CAN'T GET ENOUGH", "TORA! TORA! TORA!"],
     aBrokenFrame: ["LEAVE IN SILENCE", "SEE YOU", "THE SUN AND THE RAINFALL", "MY SECRET GARDEN"],
     constructionTimeAgain: ["PIPELINE", "EVERYTHING COUNTS", "TWO MINUTE WARNING", "LOVE, IN ITSELF"],
@@ -179,6 +180,7 @@ var totalWords = words["speakAndSpell"].length + words["aBrokenFrame"].length + 
 + words["songsOfFaithAndDevotion"].length + words["ultra"].length + words["exciter"].length + words["playingTheAngel"].length
 + words["soundsOfTheUniverse"].length + words["deltaMachine"].length + words["spirit"].length;
 
+//button activated/unactivated on enter
 document.addEventListener("keyup", function(e){
     if (e.keyCode === 13) {
         if (game === true) {
@@ -189,27 +191,36 @@ document.addEventListener("keyup", function(e){
         }
     }
 });
+//how to play message - displays first 5 secs of page load
 document.getElementById("howToPlay").innerHTML = "Try to guess the word. Press keyboard keys or use the provided buttons to guess letters.";
 setTimeout(function() {
     document.getElementById("howToPlay").innerHTML = "";
 }, 5000)
+//initiates game
 begin();
 
+
 function begin() {
+    //clears array if all words are in array so that words can be reused
     if (prevPickedArray.length >= totalWords) {
         prevPickedArray = [];
     }
     reset();
-    random = Object.keys(words)[Math.floor(Math.random() * Object.keys(words).length)]
+    //picks random property from the object
+    random = Object.keys(words)[Math.floor(Math.random() * Object.keys(words).length)];
+    //picks random property value from the array
     picked = words[random][Math.floor(Math.random() * words[random].length)];
+    //chooses a new word if the word was already used once in the cycle and picks new word if the first word in a new cycle was the same as the last word from the previous cycle
     if (prevPicked === picked || prevPickedArray.indexOf(picked) > -1) {
         while (prevPicked === picked || prevPickedArray.indexOf(picked) > -1) {
             random = Object.keys(words)[Math.floor(Math.random() * Object.keys(words).length)];
             picked = words[random][Math.floor(Math.random() * words[random].length)];
         }
     }
+    //replaces letters in picked word with dashes or other symbols and adds them to a new array
     for (var i = 0; i < picked.length; i++) {
         var x = picked.charAt(i);
+        //adds the letters of the chosen word to an array
         wordArray.push(picked[i]);
         if (x === " " || x === "'" || x === "!" || x === "," || x === "/" || x === "(" || x === ")") {
             dashes.push(x);
@@ -222,6 +233,7 @@ function begin() {
     document.getElementById("guessesLeft").innerHTML = guesses;   
     document.getElementById("word").innerHTML = dashes.join("");
     console.log(picked);
+    //determines which album hint to display based on which object property was chosen
     switch (random) {
         case "speakAndSpell": 
             document.getElementById("hint").innerHTML = "Speak and Spell";
@@ -286,28 +298,39 @@ function begin() {
     }
 }
 
+//when provided button is clicked this function is triggered
 function buttonClick(event) {
     var key = event.value;
+    //disables the button shown on screen
     document.getElementById(event.value).disabled = true;
+    //adds keys used into an array so that the buttons can later be enabled again
     keysUsed.push(key);
+    //makes function work only if the game is running so that user cant click buttons when game ends
     if (game === true) {
+        //checks if the button pressed matches any letter in the picked word
         for (var i = 0; i < wordArray.length; i++) {
+            //activates if the button matches a letter
             if (wordArray[i] === key && game === true) {
                 dashes[i] = key;
                 document.getElementById("word").innerHTML = dashes.join("");
+                //checks to see that no more dashes are left (the word was solved and all letters were guessed)
                 if (dashes.indexOf("-") === -1 && game === true) {
                     gameOverWin();
                     game = false;
                 }
             }
         }
+        //activates if the button pressed does not match a letter
         if (wordArray.indexOf(key) === -1 && game === true) {
             var playerGuesses = document.getElementById("lettersGuessed").innerText;
+            //checks if the button is already displayed and displays it if not; if it is already displayed guesses left is not decreased
             if (playerGuesses.indexOf(key) === -1) {
                 document.getElementById("lettersGuessed").innerText += key;
+                //removes a guess as long as there are still guesses left and displays the new amount of guesses left 
                 if (guesses > 0) {
                     guesses--;
                     document.getElementById("guessesLeft").innerHTML = guesses;
+                    //determines which part of the hangman to draw and when to trigger the game end function
                     switch (guesses) {
                         case 9: 
                             failure1();
@@ -347,28 +370,39 @@ function buttonClick(event) {
     }
 }
 
+//triggers when key is pressed
 document.onkeyup = function(event) {
+    //checks that the key pressed is a letter of the alphabet
     if (event.keyCode >= 65 && event.keyCode <= 90 && game === true) {
         var key = event.key.toUpperCase();
+        //disables button shown on screen
         document.getElementById(key).disabled = true;
+        //adds key to array so that buttons can later be enabled
         keysUsed.push(key);
+        //checks if the key matches any letter in the picked word
         for (var i = 0; i < wordArray.length; i++) {
+            //activates if the key matches a letter
             if (wordArray[i] === key && game === true) {
                 dashes[i] = key;
                 document.getElementById("word").innerHTML = dashes.join("");
+                //checks to see that no more dashes are left (the word was solved and all letters were guessed)
                 if (dashes.indexOf("-") === -1 && game === true) {
                     gameOverWin();
                     game = false;
                 }
             }
         }
+        //activates if the key pressed does not match a letter
         if (wordArray.indexOf(key) === -1 && game === true) {
             var playerGuesses = document.getElementById("lettersGuessed").innerText;
+            //checks if the button is already displayed and displays it if not; if it is already displayed guesses left is not decreased
             if (playerGuesses.indexOf(key) === -1) {
                 document.getElementById("lettersGuessed").innerText += key;
+                //removes a guess as long as there are still guesses left and displays the new amount of guesses left
                 if (guesses > 0) {
                     guesses--;
                     document.getElementById("guessesLeft").innerHTML = guesses;
+                    //determines which part of the hangman to draw and when to trigger the game end function
                     switch (guesses) {
                         case 9: 
                             failure1();
@@ -408,8 +442,7 @@ document.onkeyup = function(event) {
     }    
 }
 
-
-
+//determines which song to play based on the word picked
 function playSong() {
     switch (picked) {
         case "NEW LIFE":
@@ -584,17 +617,23 @@ function playSong() {
     mySound.play();
 }
 
+//triggered if player won game (guessed the word)
 function gameOverWin() {
+    //increases win count and displays new count
     wins++;
     document.getElementById("wins").innerHTML = wins;
     game = false;
+    //song plays and startNewGame() function is triggered
     playSong();
     startNewGame();
-    } 
+} 
 
+//triggered if player lost game (no guesses left)
 function gameOverLoss() {
+    //increases loss count and displays new count
     losses++;
     document.getElementById("losses").innerHTML = losses;
+    //shows the correct word; letters that weren't guessed correctly appear gray and letters guessed correctly appear normally
     for (var i = 0; i < picked.length; i++) {
             if (dashes[i] === "-") {
             dashes[i] = "<li style='color:#808080'>" + picked.charAt(i) + "</li>";
@@ -604,21 +643,30 @@ function gameOverLoss() {
     }
     document.getElementById("word").innerHTML = dashes.join("");
     game = false;
+    //song plays and startNewGame() function is triggered
     playSong();
     startNewGame();
 }
 
+//triggered every time a new game is started
 function reset() {
+    //hides button that starts new game
     document.getElementById("newGameButton").style.display = "none";
+    //shows the button that hides or shows the letter buttons
     document.getElementById("showButtons").style.display = "block";
+    //initially hides letter buttons
     document.getElementById("buttons").style.display = "none";
+    //clears letters guessed
     document.getElementById("lettersGuessed").innerHTML = "";
     document.getElementById("newGameButton").style.display = "none";
     document.getElementById("word").style.color = "#222";
+    //enables each button that was disabled
     for (var i = 0; i < keysUsed.length; i++) {
         document.getElementById(keysUsed[i]).disabled = false;
     }
+    //clears canvas
     ctx.clearRect(0,0,500,750);
+    //resets variables to initial values
     picked = "";
     dashes = [];
     game = true;
@@ -627,6 +675,7 @@ function reset() {
     random = undefined;
 }
 
+//hides button that shows/hides buttons and hides letter buttons; shows button that starts new game and stops sound when clicked
 function startNewGame() {
     document.getElementById("buttons").style.display = "none";
     document.getElementById("showButtons").style.display = "none";
@@ -635,9 +684,12 @@ function startNewGame() {
     document.getElementById("newGameButton").addEventListener("click", stopSound);    
 }
 
+//stops sound
 function stopSound() {
     mySound.pause();
 }
+
+//shows letter buttons if hidden and hides them if visible
 function showButtons() {
     if (document.getElementById("buttons").style.display === "none") {
         document.getElementById("buttons").style.display = "block";
